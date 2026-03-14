@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>La Carte — La Dolce Vita | Issoudun</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Couleur barre navigateur mobile -->
+    <meta name="theme-color" content="#8c6a51">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#8c6a51">
+
+    <style>
+        :root {
+            --primary: #8c6a51;
+            --primary-dark: #6b5240;
+            --cream: #e5d4be;
+            --cream-dark: #d4c3ad;
+            --cream-light: #f5ede0;
+            --dark: #2a1810;
+            --dark-soft: #4a3428;
+            --terracotta: #c47b5c;
+            --olive: #7a8450;
+            --olive-light: #9da86a;
+            --white: #fefefe;
+            --shadow: 0 4px 20px rgba(42, 24, 16, 0.12);
+            --shadow-lg: 0 8px 30px rgba(42, 24, 16, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--dark);
+            background: var(--cream-light);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============ HEADER ============ */
+        .menu-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 50px 20px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 0L100 100M100 0L0 100" stroke="%23e5d4be" stroke-width="0.3" opacity="0.08"/></svg>');
+            background-size: 60px 60px;
+        }
+
+        .menu-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-header .logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--cream);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+
+        .menu-header .tagline {
+            font-family: 'Dancing Script', cursive;
+            color: rgba(229, 212, 190, 0.8);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .menu-header .divider {
+            width: 50px;
+            height: 2px;
+            background: var(--terracotta);
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .menu-header .divider::before,
+        .menu-header .divider::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.5rem;
+            color: var(--terracotta);
+        }
+        .menu-header .divider::before { left: -15px; }
+        .menu-header .divider::after { right: -15px; }
+
+        .menu-header .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .menu-header .flag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 1.5rem;
+        }
+
+        /* ============ CATEGORY NAV (STICKY) ============ */
+        .cat-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 2px solid var(--cream-dark);
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(42, 24, 16, 0.08);
+        }
+
+        .cat-nav-inner {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 0 10px;
+        }
+
+        .cat-nav-inner::-webkit-scrollbar { display: none; }
+
+        .cat-nav-btn {
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            padding: 14px 18px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--dark-soft);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cat-nav-btn.active {
+            color: var(--terracotta);
+            border-bottom-color: var(--terracotta);
+        }
+
+        .cat-nav-btn .emoji {
+            font-size: 1.1rem;
+        }
+
+        /* ============ MENU CONTENT ============ */
+        .menu-body {
+            padding: 0 0 100px;
+        }
+
+        /* Category Section */
+        .cat-section {
+            padding: 25px 16px 10px;
+        }
+
+        .cat-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .cat-title-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--terracotta));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(140, 106, 81, 0.25);
+        }
+
+        .cat-title-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .cat-title-text span {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.9rem;
+            color: var(--terracotta);
+        }
+
+        /* Sub-header */
+        .sub-header {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: var(--primary);
+            padding: 15px 16px 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--cream-dark);
+        }
+
+        /* Menu Item Card */
+        .item-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            border: 1px solid var(--cream-dark);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--terracotta);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .item-card:active::before,
+        .item-card.expanded::before {
+            opacity: 1;
+        }
+
+        .item-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .item-name .star {
+            color: var(--terracotta);
+            font-size: 0.8rem;
+            margin-left: 4px;
+        }
+
+        .item-badge {
+            background: var(--terracotta);
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .item-badge.green {
+            background: var(--olive);
+        }
+
+        .item-desc {
+            color: var(--dark-soft);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            margin-top: 6px;
+        }
+
+        .item-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .item-tag {
+            background: var(--cream-light);
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid var(--cream-dark);
+        }
+
+        /* Simple list (drinks) */
+        .simple-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 0 16px 10px;
+        }
+
+        .simple-item {
+            background: var(--white);
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--cream-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .simple-item:active {
+            border-color: var(--terracotta);
+            transform: scale(0.98);
+        }
+
+        .simple-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .simple-item .name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        /* Flavor note */
+        .flavor-note {
+            text-align: center;
+            padding: 10px 20px 20px;
+            font-size: 0.8rem;
+            color: var(--dark-soft);
+            font-style: italic;
+        }
+
+        .flavor-note i {
+            color: var(--terracotta);
+            margin-right: 4px;
+        }
+
+        /* ============ INFO BANNER ============ */
+        .info-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            margin: 15px 16px;
+            border-radius: 14px;
+            padding: 22px 20px;
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-banner::before {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 100px; height: 100px;
+            border: 15px solid rgba(229, 212, 190, 0.05);
+            border-radius: 50%;
+        }
+
+        .info-banner-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(196, 123, 92, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .info-banner-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-banner-text h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .info-banner-text p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        /* ============ FOOTER BAR ============ */
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--dark);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 200;
+            box-shadow: 0 -3px 20px rgba(42, 24, 16, 0.2);
+            gap: 10px;
+        }
+
+        .footer-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--cream);
+            flex: 1;
+            min-width: 0;
+        }
+
+        .footer-bar-info .logo-mini {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.3rem;
+            color: var(--terracotta);
+            white-space: nowrap;
+        }
+
+        .footer-bar-info .status {
+            font-size: 0.7rem;
+            color: rgba(229, 212, 190, 0.5);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .footer-bar-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .footer-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 16px;
+            border-radius: 25px;
+            border: none;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-btn-call {
+            background: var(--olive);
+            color: var(--white);
+        }
+
+        .footer-btn-call:active {
+            background: var(--olive-light);
+            transform: scale(0.96);
+        }
+
+        .footer-btn-site {
+            background: rgba(229, 212, 190, 0.1);
+            color: var(--cream);
+            border: 1px solid rgba(229, 212, 190, 0.2);
+        }
+
+        .footer-btn-site:active {
+            background: rgba(229, 212, 190, 0.2);
+        }
+
+        /* ============ ALLERGEN NOTE ============ */
+        .allergen-note {
+            background: var(--cream);
+            margin: 0 16px 15px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border: 1px solid var(--cream-dark);
+        }
+
+        .allergen-note i {
+            color: var(--terracotta);
+            font-size: 1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .allergen-note p {
+            font-size: 0.78rem;
+            color: var(--dark-soft);
+            line-height: 1.5;
+        }
+
+        /* ============ BACK TO TOP MINI ============ */
+        .scroll-top-mini {
+            position: fixed;
+            bottom: 75px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: var(--cream);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            z-index: 150;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 3px 15px rgba(140, 106, 81, 0.3);
+            cursor: pointer;
+        }
+
+        .scroll-top-mini.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-mini:active {
+            transform: scale(0.9);
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cat-section .item-card,
+        .cat-section .simple-grid {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        /* ============ DESKTOP ENHANCE ============ */
+        @media (min-width: 600px) {
+            .menu-body {
+                max-width: 650px;
+                margin: 0 auto;
+            }
+
+            .cat-nav-inner {
+                justify-content: center;
+            }
+
+            .simple-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .menu-header {
+                padding: 60px 20px 40px;
+            }
+
+            .menu-header .logo {
+                font-size: 4rem;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .menu-body {
+                max-width: 800px;
+            }
+
+            .item-card {
+                padding: 20px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ HEADER ============ -->
+    <header class="menu-header">
+        <div class="menu-header-content">
+            <div class="logo">La Dolce Vita</div>
+            <div class="tagline">Restaurant Italien — Issoudun</div>
+            <div class="divider"></div>
+            <div class="title">Notre Carte</div>
+            <div class="flag">🇮🇹</div>
+        </div>
+    </header>
+
+    <!-- ============ STICKY CATEGORY NAV ============ -->
+    <nav class="cat-nav" id="catNav">
+        <div class="cat-nav-inner" id="catNavInner">
+            <button class="cat-nav-btn active" data-target="sec-aperitifs"><span class="emoji">🥂</span> Apéritifs</button>
+            <button class="cat-nav-btn" data-target="sec-pizze"><span class="emoji">🍕</span> Pizze</button>
+            <button class="cat-nav-btn" data-target="sec-pasta"><span class="emoji">🍝</span> Pasta</button>
+            <button class="cat-nav-btn" data-target="sec-pesce"><span class="emoji">🐟</span> Pesce</button>
+            <button class="cat-nav-btn" data-target="sec-insalate"><span class="emoji">🥗</span> Insalate</button>
+            <button class="cat-nav-btn" data-target="sec-dolci"><span class="emoji">🍰</span> Dolci</button>
+            <button class="cat-nav-btn" data-target="sec-gelati"><span class="emoji">🍨</span> Gelati</button>
+            <button class="cat-nav-btn" data-target="sec-spirits"><span class="emoji">🥃</span> Spirits</button>
+        </div>
+    </nav>
+
+    <!-- ============ MENU BODY ============ -->
+    <main class="menu-body">
+
+        <!-- ALLERGEN NOTE -->
+        <div class="allergen-note" style="margin-top:15px;">
+            <i class="fas fa-info-circle"></i>
+            <p>Pour toute allergie ou intolérance alimentaire, n'hésitez pas à en informer votre serveur. Tous nos plats sont préparés sur place avec des produits frais.</p>
+        </div>
+
+        <!-- ===== APÉRITIFS & BIÈRES ===== -->
+        <section class="cat-section" id="sec-aperitifs">
+            <div class="cat-title">
+                <div class="cat-title-icon">🥂</div>
+                <div class="cat-title-text">
+                    <h2>Apéritifs & Bières</h2>
+                    <span>Per iniziare bene</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="sub-header">Apéritifs</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Aperol Spritz</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Americano</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Martini Blanc</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Martini Rouge</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Campari</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Panaché</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Marsala Amandes</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Prosecco</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Kir</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Kir Royal</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Ricard</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Diabolo</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Sirop à l'eau</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Fruit Mix</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Vodka Fruit</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Get 27</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Porto</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Baileys</span></div>
+        </div>
+
+        <div class="sub-header">Bières</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Kronenbourg 25cl</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Kronenbourg 50cl</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Grimbergen Rouge 25cl</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Grimbergen Rouge 50cl</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Bière Italienne 33cl</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Paulaner 50cl Weiss</span></div>
+        </div>
+
+        <!-- ===== PIZZE ===== -->
+        <section class="cat-section" id="sec-pizze">
+            <div class="cat-title">
+                <div class="cat-title-icon">🍕</div>
+                <div class="cat-title-text">
+                    <h2>Nos Pizze</h2>
+                    <span>Cuite au feu de bois</span>
+                </div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Pescatore</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, fruits de mer</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Capricciosa</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, épaule, artichaut, asperges, œuf</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Calzone</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, épaule, champignons, œuf</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Ortolana</div>
+                    <span class="item-badge green">Végé</span>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, aubergines, courgettes, oignons, poivrons</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Parma</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, prosciutto di Parma</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Hawaii</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, saumon fumé, ananas</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Quattro Formaggi</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, gorgonzola, chèvre, parmesan</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Salmone</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, saumon fumé, oignons</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Primavera</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, poivrons, oignons, champignons, chorizo, lardons, olives</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Cataldo</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, crevettes, roquette, parmesan</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Berrichonne</div>
+                </div>
+                <p class="item-desc">Mozzarella, chèvre, lardons, crème fraîche</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Ema</div>
+                </div>
+                <p class="item-desc">Mozzarella, crème fraîche, artichaut, roquette, parmesan</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Giuliano</div>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, merguez, œuf, crème fraîche</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Michael</div>
+                    <span class="item-badge">Truffe</span>
+                </div>
+                <p class="item-desc">Mozzarella, crème de truffe blanche, roquette, copeaux de parmesan</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Mimmo</div>
+                </div>
+                <p class="item-desc">Mozzarella, pomme de terre, lardons, oignons</p>
+            </div>
+
+            <div class="item-card" style="border-color: var(--terracotta); background: linear-gradient(135deg, var(--white) 0%, rgba(196,123,92,0.05) 100%);">
+                <div class="item-card-header">
+                    <div class="item-name">Dolcevita <span class="star">⭐</span></div>
+                    <span class="item-badge">Signature</span>
+                </div>
+                <p class="item-desc">Tomate, mozzarella, crème de truffe blanche, rosetta, copeaux de parmesan, oignons</p>
+                <div class="item-tags">
+                    <span class="item-tag"><i class="fas fa-crown" style="color:var(--terracotta);margin-right:3px"></i> Notre best-seller</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PASTA FRESCA ===== -->
+        <section class="cat-section" id="sec-pasta">
+            <div class="cat-title">
+                <div class="cat-title-icon">🍝</div>
+                <div class="cat-title-text">
+                    <h2>La Pasta Fresca</h2>
+                    <span>Fatta a mano</span>
+                </div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">I Tagliolini</div>
+                </div>
+                <p class="item-desc">Sauce au choix : tomate douce, burrata pugliese & basilic — Cacio e pepe alla romana (crème au pecorino romano et poivre noir)</p>
+                <div class="item-tags"><span class="item-tag">Choix de sauce</span></div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Tagliolini Al Cartoccio</div>
+                    <span class="item-badge">Premium</span>
+                </div>
+                <p class="item-desc">Fruits de mer, langoustine, crevettes ou gambas — cuit en papillote</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">I Garganelli</div>
+                </div>
+                <p class="item-desc">Sauce au choix : pesto de roquette maison — tomates cerises et crevettes — au saumon</p>
+                <div class="item-tags"><span class="item-tag">Choix de sauce</span></div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">I Tortellini Bolognesi</div>
+                </div>
+                <p class="item-desc">Farce traditionnelle au jambon de Parma, mortadella de Bologna, fromage de vache, parmesan. Sauce crème fraîche et jambon ou à la bolognaise</p>
+                <div class="item-tags"><span class="item-tag">À la viande</span></div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Cappelletti Romagnoli</div>
+                </div>
+                <p class="item-desc">Pâtes farcies au fromage, recette traditionnelle de Romagne</p>
+                <div class="item-tags"><span class="item-tag">Au fromage</span></div>
+            </div>
+
+            <div class="item-card" style="border-color: var(--terracotta); background: linear-gradient(135deg, var(--white) 0%, rgba(196,123,92,0.05) 100%);">
+                <div class="item-card-header">
+                    <div class="item-name">I Ravioli Piemontesi Al Plin <span class="star">⭐</span></div>
+                    <span class="item-badge">Signature</span>
+                </div>
+                <p class="item-desc">Farce au brasato cuit dans le Barolo, sauce au gorgonzola et jus de veau épais légèrement balsamique</p>
+                <div class="item-tags">
+                    <span class="item-tag"><i class="fas fa-gem" style="color:var(--terracotta);margin-right:3px"></i> À la viande</span>
+                </div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Le Tagliatelle alla Carbonara</div>
+                </div>
+                <p class="item-desc">Avec le guanciale et le pecorino romano — recette romaine authentique</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">La Lasagne à la Bolognaise</div>
+                </div>
+                <p class="item-desc">Bolognaise maison, béchamel, mozzarella, parmesan gratinées au four</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Risotto aux Légumes</div>
+                    <span class="item-badge green">Végé</span>
+                </div>
+                <p class="item-desc">Risotto crémeux aux légumes de saison</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Risotto aux Cèpes</div>
+                </div>
+                <p class="item-desc">Risotto crémeux aux cèpes — Supplément saint-jacques +5€</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Risotto aux Fruits de Mer</div>
+                </div>
+                <p class="item-desc">Risotto crémeux aux fruits de mer frais</p>
+            </div>
+        </section>
+
+        <!-- ===== PESCE ===== -->
+        <section class="cat-section" id="sec-pesce">
+            <div class="cat-title">
+                <div class="cat-title-icon">🐟</div>
+                <div class="cat-title-text">
+                    <h2>Pesce</h2>
+                    <span>Frutti di mare</span>
+                </div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">La Capasanta</div>
+                </div>
+                <p class="item-desc">Saint-Jacques poêlées servies avec des champignons aux parfums balsamiques et purée de pomme de terre</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Il Fritto Misto di Gamberi e Calamari</div>
+                </div>
+                <p class="item-desc">Tempura de calamars et gambas accompagnés de légumes (toujours à la tempura)</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Soupe de Poissons</div>
+                </div>
+                <p class="item-desc">Saint-Jacques, langoustines, crevettes, fruits de mer</p>
+            </div>
+        </section>
+
+        <div class="sub-header">Accompagnements</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Légumes au four</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Purée de pomme de terre</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Pomme de terre au four</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Salade verte</span></div>
+        </div>
+
+        <!-- ===== INSALATE ===== -->
+        <section class="cat-section" id="sec-insalate">
+            <div class="cat-title">
+                <div class="cat-title-icon">🥗</div>
+                <div class="cat-title-text">
+                    <h2>Les Salades</h2>
+                    <span>Fresche e leggere</span>
+                </div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Frescaaaaa!</div>
+                </div>
+                <p class="item-desc">Salade mesclun, tomates cerises, pesto, ricotta, olives, chips de topinambour</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Paesello</div>
+                </div>
+                <p class="item-desc">Salade verte, poulet poêlé, mozzarella, olives, copeaux de parmesan</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">La Belvedere</div>
+                </div>
+                <p class="item-desc">Salade verte, thon, carottes, mozzarella, œuf</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Salina</div>
+                </div>
+                <p class="item-desc">Salade mesclun, burrata pugliese, anchois, câpres</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Romagnola</div>
+                    <span class="item-badge">Premium</span>
+                </div>
+                <p class="item-desc">Salade mesclun, noix de saint-Jacques, gambas ou crevettes, asperges, vinaigrette aux agrumes</p>
+            </div>
+        </section>
+
+        <!-- ===== DOLCI ===== -->
+        <section class="cat-section" id="sec-dolci">
+            <div class="cat-title">
+                <div class="cat-title-icon">🍰</div>
+                <div class="cat-title-text">
+                    <h2>Les Desserts</h2>
+                    <span>Dolci fatti in casa</span>
+                </div>
+            </div>
+
+            <div class="item-card" style="border-color: var(--terracotta); background: linear-gradient(135deg, var(--white) 0%, rgba(196,123,92,0.05) 100%);">
+                <div class="item-card-header">
+                    <div class="item-name">Tiramisù <span class="star">⭐</span></div>
+                    <span class="item-badge">Classique</span>
+                </div>
+                <p class="item-desc">Savoiardi au parfum de caffé, crème de mascarpone et chantilly, cacao</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Nocciolino</div>
+                </div>
+                <p class="item-desc">Émietté de biscuits feuilletés et son crémeux de noisette du Piémont surmonté de chantilly</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Delizia al Limone</div>
+                </div>
+                <p class="item-desc">Crème au citron servie dans une verrine avec son gâteau au parfum de limoncello</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Zuppa Inglese</div>
+                </div>
+                <p class="item-desc">Gâteau de biscuit au parfum de martini blanc sur deux couches de crème pâtissière et crème au chocolat</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Panna Cotta</div>
+                </div>
+                <p class="item-desc">Au choix : caramel, fraise, chocolat ou café</p>
+                <div class="item-tags">
+                    <span class="item-tag">Caramel</span>
+                    <span class="item-tag">Fraise</span>
+                    <span class="item-tag">Chocolat</span>
+                    <span class="item-tag">Café</span>
+                </div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Briccio</div>
+                </div>
+                <p class="item-desc">Gâteau façon cheesecake, crème pâtissière à la pêche</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Torta Elvira</div>
+                </div>
+                <p class="item-desc">Fondant au chocolat chaud servi sur une crème de mascarpone froide</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Mousse au Chocolat</div>
+                </div>
+                <p class="item-desc">Mousse aérienne au chocolat noir</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Café Gourmand</div>
+                </div>
+                <p class="item-desc">Café et ses mignardises</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Tarte aux Pommes</div>
+                </div>
+                <p class="item-desc">Chaude, servie avec une crème anglaise froide</p>
+            </div>
+        </section>
+
+        <!-- ===== GELATI ===== -->
+        <section class="cat-section" id="sec-gelati">
+            <div class="cat-title">
+                <div class="cat-title-icon">🍨</div>
+                <div class="cat-title-text">
+                    <h2>Les Glaces</h2>
+                    <span>Gelati e sorbetti</span>
+                </div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Chocolat ou Café Liégeois</div>
+                </div>
+                <p class="item-desc">Chocolat ou café, vanille, coulis et chantilly</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Banana Split</div>
+                </div>
+                <p class="item-desc">Banane fruit, coulis chocolat, fraise et vanille</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Pêche Melba</div>
+                </div>
+                <p class="item-desc">Vanille, coulis fraise, pêche fruit et chantilly</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Dame Blanche</div>
+                </div>
+                <p class="item-desc">Vanille, coulis chocolat, chantilly et cacao</p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-name">Iceberg Menthe</div>
+                </div>
+                <p class="item-desc">Menthe fraîcheur chocolat, Get 27, coulis choco et chantilly</p>
+            </div>
+        </section>
+
+        <div class="sub-header">Boules de Glace</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">1 Boule</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">2 Boules</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">3 Boules</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Supp. Chantilly</span></div>
+        </div>
+        <div class="flavor-note">
+            <i class="fas fa-ice-cream"></i>
+            Parfums : vanille, chocolat, café, fraise, menthe fraîcheur chocolat, citron, cassis
+        </div>
+
+        <!-- ===== SPIRITUEUX ===== -->
+        <section class="cat-section" id="sec-spirits">
+            <div class="cat-title">
+                <div class="cat-title-icon">🥃</div>
+                <div class="cat-title-text">
+                    <h2>Spiritueux</h2>
+                    <span>Per i veri intenditori</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="sub-header">Gin</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Monkey 47</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Hendrick's</span></div>
+        </div>
+
+        <div class="sub-header">Whisky</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Aberlour 10 Ans</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Lagavulin 16 Ans</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Nikka Pure Malt</span></div>
+        </div>
+
+        <div class="sub-header">Vodka</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Belvedere</span></div>
+        </div>
+
+        <div class="sub-header">Grappa & Digestivi</div>
+        <div class="simple-grid">
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Grappa Piave</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Limoncello</span></div>
+            <div class="simple-item"><div class="simple-dot"></div><span class="name">Branca Menta</span></div>
+        </div>
+
+        <!-- INFO BANNER -->
+        <div class="info-banner">
+            <div class="info-banner-icon">📍</div>
+            <div class="info-banner-text">
+                <h4>Venez nous voir !</h4>
+                <p>Centre-ville, Issoudun 36100<br>Ouvert du lundi au dimanche (sauf mercredi)</p>
+            </div>
+        </div>
+
+        <div class="info-banner" style="background: linear-gradient(135deg, var(--terracotta), #a85c3f);">
+            <div class="info-banner-icon" style="background: rgba(255,255,255,0.15);">🍕</div>
+            <div class="info-banner-text">
+                <h4>À emporter disponible</h4>
+                <p>Commandez par téléphone et récupérez vos plats au restaurant</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top-mini" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- FOOTER BAR -->
+    <div class="footer-bar">
+        <div class="footer-bar-info">
+            <span class="logo-mini">Dolce Vita</span>
+            <span class="status" id="statusText"></span>
+        </div>
+        <div class="footer-bar-actions">
+            <a href="tel:+33254210000" class="footer-btn footer-btn-call">
+                <i class="fas fa-phone"></i> Appeler
+            </a>
+            <a href="index.html" class="footer-btn footer-btn-site">
+                <i class="fas fa-globe"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // ====== STICKY NAV — Active on scroll ======
+        const catNavBtns = document.querySelectorAll('.cat-nav-btn');
+        const sections = document.querySelectorAll('.cat-section');
+
+        // Click handler
+        catNavBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.target);
+                if (target) {
+                    const navH = document.getElementById('catNav').offsetHeight;
+                    const y = target.getBoundingClientRect().top + window.pageYOffset - navH - 10;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+
+                // Active state
+                catNavBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Scroll nav into view
+                btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            });
+        });
+
+        // Scroll spy
+        const navHeight = document.getElementById('catNav').offsetHeight;
+
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(sec => {
+                const top = sec.getBoundingClientRect().top;
+                if (top < navHeight + 80) {
+                    current = sec.id;
+                }
+            });
+
+            catNavBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.target === current);
+                if (btn.dataset.target === current) {
+                    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+            });
+        }
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            updateActiveNav();
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+
+        // ====== OPEN STATUS ======
+        function getStatus() {
+            const now = new Date();
+            const day = now.getDay(); // 0=dim
+            const h = now.getHours();
+            const m = now.getMinutes();
+            const time = h * 60 + m;
+
+            // Mercredi fermé
+            if (day === 3) return { open: false, text: 'Fermé aujourd\'hui (mercredi)' };
+
+            // Dimanche midi seulement
+            if (day === 0) {
+                if (time >= 720 && time <= 870) return { open: true, text: 'Ouvert — ferme à 14h30' };
+                return { open: false, text: 'Fermé — Dim. midi uniquement' };
+            }
+
+            // Samedi
+            if (day === 6) {
+                if (time >= 720 && time <= 870) return { open: true, text: 'Ouvert — ferme à 14h30' };
+                if (time >= 1140 && time <= 1380) return { open: true, text: 'Ouvert — ferme à 23h00' };
+                if (time > 870 && time < 1140) return { open: false, text: 'Fermé — reprise à 19h' };
+                return { open: false, text: 'Fermé' };
+            }
+
+            // Vendredi
+            if (day === 5) {
+                if (time >= 720 && time <= 840) return { open: true, text: 'Ouvert — ferme à 14h00' };
+                if (time >= 1140 && time <= 1350) return { open: true, text: 'Ouvert — ferme à 22h30' };
+                if (time > 840 && time < 1140) return { open: false, text: 'Fermé — reprise à 19h' };
+                return { open: false, text: 'Fermé' };
+            }
+
+            // Lun, Mar, Jeu
+            if (time >= 720 && time <= 840) return { open: true, text: 'Ouvert — ferme à 14h00' };
+            if (time >= 1140 && time <= 1320) return { open: true, text: 'Ouvert — ferme à 22h00' };
+            if (time > 840 && time < 1140) return { open: false, text: 'Fermé — reprise à 19h' };
+            return { open: false, text: 'Fermé' };
+        }
+
+        const status = getStatus();
+        const statusEl = document.getElementById('statusText');
+        statusEl.textContent = (status.open ? '🟢 ' : '🔴 ') + status.text;
+        statusEl.style.color = status.open ? 'rgba(157,168,106,0.9)' : 'rgba(229,212,190,0.5)';
+    </script>
+
+</body>
+</html>
